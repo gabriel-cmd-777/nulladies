@@ -1,0 +1,2056 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="theme-color" content="#0d1320">
+<meta name="color-scheme" content="dark">
+<title>Nulla dies sine linea</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0d1320;
+  --bg-elev: #1a2238;
+  --bg-elev-2: #232d48;
+  --ink: #f5efe0;
+  --ink-dim: #c4b89c;
+  --ink-faint: #8a8169;
+  --accent: #e9b87a;
+  --accent-bright: #f4c98a;
+  --accent-deep: #b88450;
+  --line: #3d4663;
+  --line-soft: #2a3247;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+  background: #0d1320 !important;
+  min-height: 100vh;
+}
+body {
+  background: var(--bg) !important;
+  min-height: 100vh;
+  color: var(--ink);
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  -webkit-font-smoothing: antialiased;
+  background-image:
+    radial-gradient(circle at 15% 8%, rgba(212, 165, 116, 0.04) 0%, transparent 45%),
+    radial-gradient(circle at 85% 92%, rgba(212, 165, 116, 0.03) 0%, transparent 50%);
+  background-attachment: fixed;
+}
+
+.app {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 36px 24px 100px;
+  position: relative;
+}
+
+/* ---- HEADER ---- */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 20px;
+  margin-bottom: 48px;
+  gap: 16px;
+}
+.title {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 500;
+  font-style: italic;
+  font-size: 30px;
+  letter-spacing: -0.01em;
+  line-height: 1.1;
+  color: var(--ink);
+}
+.subtitle {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  color: var(--ink-faint);
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+  margin-top: 6px;
+}
+.counter {
+  text-align: right;
+  white-space: nowrap;
+}
+.counter-num {
+  display: block;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 30px;
+  font-weight: 400;
+  color: var(--accent);
+  font-style: italic;
+  line-height: 1;
+}
+.counter-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  color: var(--ink-faint);
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  margin-top: 4px;
+  display: block;
+}
+
+/* ---- MAIN ---- */
+.main { animation: fadeIn 0.5s ease-out; }
+.hidden { display: none !important; }
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes breathe {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 0.85; }
+}
+
+/* ---- WRITING VIEW ---- */
+.incipit-frame {
+  background: var(--bg-elev);
+  padding: 18px 22px;
+  border-left: 2px solid var(--accent);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 24px;
+}
+.incipit-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  color: var(--ink-faint);
+}
+.incipit-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 24px;
+  font-style: italic;
+  font-weight: 500;
+  color: var(--accent);
+}
+.free-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  color: var(--ink-faint);
+  padding: 14px 0;
+  border-bottom: 1px dashed var(--line);
+  margin-bottom: 16px;
+}
+#draft {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 22px;
+  line-height: 1.55;
+  width: 100%;
+  min-height: 200px;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--line);
+  outline: none;
+  color: var(--ink);
+  resize: none;
+  padding: 8px 0 16px;
+  caret-color: var(--accent);
+}
+#draft::placeholder { color: var(--ink-faint); font-style: italic; }
+.actions-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 20px;
+}
+button {
+  cursor: pointer;
+  font-family: 'JetBrains Mono', monospace;
+  transition: all 0.2s;
+}
+button:disabled { cursor: not-allowed; opacity: 0.3; }
+.btn-primary {
+  background: var(--accent);
+  color: var(--bg);
+  border: none;
+  padding: 14px 24px;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+  font-weight: 500;
+}
+.btn-primary:hover:not(:disabled) { background: var(--ink); }
+.btn-secondary {
+  background: transparent;
+  color: var(--ink-dim);
+  border: 1px solid var(--line);
+  padding: 13px 20px;
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+}
+.btn-secondary:hover { border-color: var(--ink-dim); color: var(--ink); }
+.btn-tertiary {
+  background: transparent;
+  color: var(--ink-faint);
+  border: none;
+  padding: 8px 0;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.btn-tertiary:hover { color: var(--accent); }
+
+/* ---- FINALE CHOICE ---- */
+.finale-view { display: flex; flex-direction: column; gap: 28px; }
+.finale-hint {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--ink-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+  text-align: center;
+}
+.preview {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 20px;
+  line-height: 1.6;
+  padding: 24px 16px;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  text-align: center;
+}
+.preview-dim { color: var(--ink-faint); opacity: 0.6; }
+.preview-bright {
+  color: var(--accent);
+  font-weight: 500;
+  font-style: italic;
+}
+.choices {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.choices.three {
+  grid-template-columns: 1fr;
+}
+.choice-card:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+.choice-card:disabled:hover {
+  border-color: var(--line);
+  background: var(--bg-elev);
+}
+.choice-card {
+  background: var(--bg-elev);
+  border: 1px solid var(--line);
+  padding: 20px 18px;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-family: inherit;
+  color: var(--ink);
+}
+.choice-card:hover {
+  border-color: var(--accent);
+  background: var(--bg-elev-2);
+}
+.choice-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  color: var(--ink-faint);
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+}
+.choice-value {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px;
+  font-style: italic;
+  font-weight: 500;
+  color: var(--accent);
+  word-break: break-word;
+}
+.choice-desc {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  color: var(--ink-faint);
+}
+.warning {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  color: var(--accent-deep);
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+  text-align: center;
+}
+
+/* CLOSING CHAIN VIEW */
+.closing-view {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px 0;
+}
+.closing-count {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 36px;
+  font-style: italic;
+  font-weight: 500;
+  color: var(--accent);
+  text-align: center;
+  line-height: 1;
+}
+.closing-preview {
+  background: var(--bg-elev);
+  border-left: 2px solid var(--accent-deep);
+  padding: 16px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.closing-snippet {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 16px;
+  font-style: italic;
+  color: var(--ink-dim);
+  line-height: 1.4;
+}
+.closing-more {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  color: var(--ink-faint);
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  margin-top: 4px;
+}
+.closing-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--ink-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+  margin-top: 12px;
+}
+.closing-input {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px;
+  font-style: italic;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--accent);
+  outline: none;
+  color: var(--accent);
+  padding: 10px 0;
+  width: 100%;
+  caret-color: var(--accent);
+}
+.closing-input::placeholder {
+  color: var(--ink-faint);
+  opacity: 0.7;
+}
+.closing-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-top: 16px;
+  flex-wrap: wrap;
+}
+.closing-actions-right {
+  display: flex;
+  gap: 10px;
+}
+
+/* ---- LOCKED ---- */
+.locked-view {
+  text-align: center;
+  padding: 32px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+.lock-symbol {
+  font-size: 56px;
+  color: var(--accent);
+  animation: breathe 4s ease-in-out infinite;
+  line-height: 1;
+}
+.locked-line {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--ink-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+}
+.locked-time {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 52px;
+  font-weight: 400;
+  color: var(--ink);
+  font-style: italic;
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+.pending-incipit-block {
+  margin-top: 20px;
+  padding: 20px 24px;
+  background: var(--bg-elev);
+  border-left: 2px solid var(--accent);
+  width: 100%;
+  max-width: 420px;
+}
+.pending-incipit-hint {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  color: var(--ink-faint);
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  margin-bottom: 10px;
+}
+.pending-incipit-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 24px;
+  font-style: italic;
+  color: var(--accent);
+}
+.unlock-at {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  color: var(--ink-faint);
+  margin-top: 12px;
+  letter-spacing: 0.1em;
+}
+
+/* ---- ARCHIVE ---- */
+.archive-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 32px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--line);
+}
+.archive-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 28px;
+  font-style: italic;
+  font-weight: 500;
+  color: var(--accent);
+}
+.chain-block { margin-bottom: 36px; }
+.chain-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  color: var(--ink-faint);
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 1px dashed var(--line-soft);
+}
+.chain-sentences {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+.archived-sentence {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+.archived-index {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--ink-faint);
+  min-width: 28px;
+  padding-top: 6px;
+}
+.archived-body { flex: 1; }
+.archived-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 19px;
+  line-height: 1.55;
+  color: var(--ink);
+  margin-bottom: 6px;
+}
+.archived-meta {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  color: var(--ink-faint);
+  letter-spacing: 0.05em;
+}
+.archived-meta em {
+  color: var(--accent);
+  font-style: italic;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 12px;
+}
+.archive-footer {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  color: var(--ink-faint);
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+  margin-top: 32px;
+  padding-top: 20px;
+  border-top: 1px solid var(--line-soft);
+}
+
+/* CHAIN HEADER (titolo + azioni) */
+.chain-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px dashed var(--line-soft);
+}
+.chain-header-left {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+.chain-header .chain-label {
+  margin: 0;
+  padding: 0;
+  border: none;
+}
+.chain-title-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-weight: 500;
+  font-size: 22px;
+  color: var(--accent);
+  line-height: 1.2;
+  word-break: break-word;
+}
+.chain-title-untitled {
+  color: var(--ink-faint);
+  font-size: 16px;
+  opacity: 0.7;
+}
+.chain-actions {
+  display: flex;
+  gap: 6px;
+  flex-shrink: 0;
+}
+.chain-action {
+  background: var(--bg-elev-2);
+  border: 1px solid var(--accent-deep);
+  color: var(--accent-bright);
+  font-size: 16px;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: inherit;
+  padding: 0;
+  border-radius: 2px;
+}
+.chain-action:hover, .chain-action:active {
+  border-color: var(--accent);
+  background: var(--accent);
+  color: var(--bg);
+}
+
+/* FLASH MESSAGE */
+.flash-message {
+  position: fixed;
+  bottom: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--bg-elev-2);
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  padding: 10px 20px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  z-index: 200;
+  opacity: 1;
+  transition: opacity 0.3s ease-out;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+}
+
+/* ---- BOTTOM BAR ---- */
+.bottom-bar {
+  position: fixed;
+  bottom: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  z-index: 10;
+  flex-wrap: wrap;
+  justify-content: center;
+  max-width: 90vw;
+}
+.bottom-btn {
+  border: none;
+  padding: 12px 20px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+  font-weight: 500;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+}
+.bottom-btn.concluse {
+  background: var(--bg-elev-2);
+  color: var(--accent);
+  border: 1px solid var(--accent);
+}
+.bottom-btn.concluse:hover {
+  background: var(--accent);
+  color: var(--bg);
+}
+.bottom-btn.incorso {
+  background: var(--accent);
+  color: var(--bg);
+}
+.bottom-btn.incorso:hover {
+  background: var(--ink);
+  color: var(--bg);
+}
+.incorso-locked-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  color: var(--ink-faint);
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  padding: 8px 16px;
+  background: var(--bg-elev);
+  border: 1px solid var(--line);
+}
+
+/* ---- ARCHIVE TITLE BLOCK ---- */
+.archive-title-block {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.archive-subtitle {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  color: var(--ink-faint);
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+}
+
+/* ---- EMPTY SECTION ---- */
+.empty-section {
+  padding: 60px 20px;
+  text-align: center;
+}
+.empty-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 17px;
+  font-style: italic;
+  color: var(--ink-faint);
+  line-height: 1.6;
+}
+
+/* ---- TEST PANEL ---- */
+.test-wrapper {
+  position: fixed;
+  top: 12px;
+  right: 12px;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
+}
+.test-toggle {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  padding: 6px 10px;
+  border: 1px solid var(--line);
+  letter-spacing: 0.2em;
+  font-weight: 500;
+  background: transparent;
+  color: var(--ink-faint);
+}
+.test-toggle.active {
+  background: var(--accent-deep);
+  color: var(--bg);
+  border-color: var(--accent-deep);
+}
+.test-panel {
+  background: var(--bg-elev);
+  border: 1px solid var(--line);
+  padding: 16px;
+  width: 230px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+}
+.test-panel-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  color: var(--ink-faint);
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+}
+.test-panel-desc {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--ink);
+  line-height: 1.5;
+}
+.test-button {
+  background: transparent;
+  border: 1px solid var(--line);
+  color: var(--ink-dim);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  padding: 8px 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  text-align: left;
+}
+.test-button:hover { border-color: var(--accent); color: var(--accent); }
+.test-button.danger { color: var(--accent-deep); border-color: var(--accent-deep); }
+.test-button.danger:hover { color: var(--bg); background: var(--accent-deep); }
+.test-button.danger-confirm {
+  background: var(--accent-deep);
+  color: var(--bg);
+  animation: pulse 0.8s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+.test-warning {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  color: var(--ink-faint);
+  font-style: italic;
+  line-height: 1.4;
+  margin-top: 4px;
+}
+.test-button.accent {
+  color: var(--accent-bright);
+  border-color: var(--accent-deep);
+}
+.test-button.accent:hover {
+  background: var(--accent);
+  color: var(--bg);
+  border-color: var(--accent);
+}
+.test-divider {
+  border: none;
+  border-top: 1px solid var(--line);
+  margin: 6px 0;
+}
+
+/* ---- MODAL OVERLAY ---- */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(8, 12, 24, 0.85);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  z-index: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  animation: fadeIn 0.2s ease-out;
+}
+.modal-panel {
+  background: var(--bg-elev);
+  border: 1px solid var(--accent-deep);
+  padding: 24px;
+  max-width: 480px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.6);
+}
+.modal-panel.modal-large {
+  max-width: 600px;
+}
+.modal-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px;
+  font-style: italic;
+  font-weight: 500;
+  color: var(--accent-bright);
+}
+.modal-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--ink-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+}
+.modal-message {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 17px;
+  color: var(--ink);
+  line-height: 1.5;
+}
+.modal-input {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 20px;
+  font-style: italic;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  outline: none;
+  color: var(--accent-bright);
+  padding: 12px 14px;
+  width: 100%;
+  caret-color: var(--accent);
+}
+.modal-input:focus {
+  border-color: var(--accent);
+}
+.modal-textarea {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  outline: none;
+  color: var(--ink);
+  padding: 12px;
+  width: 100%;
+  min-height: 200px;
+  max-height: 50vh;
+  resize: vertical;
+  line-height: 1.5;
+}
+.modal-textarea:focus { border-color: var(--accent); }
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-top: 8px;
+}
+
+@media (max-width: 480px) {
+  .app { padding: 24px 16px 100px; }
+  .title { font-size: 24px; }
+  .counter-num { font-size: 24px; }
+  .choices { grid-template-columns: 1fr; }
+  .locked-time { font-size: 42px; }
+  .test-panel { width: 220px; }
+  .modal-panel { padding: 18px; }
+  .modal-title { font-size: 20px; }
+}
+</style>
+</head>
+<body>
+
+<div class="app">
+  <header class="header">
+    <div>
+      <h1 class="title">Nulla dies<br/>sine linea</h1>
+      <p class="subtitle">una frase ogni dodici ore</p>
+    </div>
+    <div class="counter" id="counter"></div>
+  </header>
+
+  <main class="main" id="main"></main>
+
+  <div class="bottom-bar" id="bottom-bar">
+    <button id="concluse-trigger" class="bottom-btn concluse hidden"></button>
+    <button id="incorso-trigger" class="bottom-btn incorso hidden"></button>
+    <div id="incorso-locked-label" class="incorso-locked-label hidden"></div>
+  </div>
+
+  <div class="test-wrapper">
+    <button id="test-toggle" class="test-toggle" onclick="toggleTestPanel()">○ test</button>
+    <div id="test-panel" class="test-panel hidden"></div>
+  </div>
+</div>
+
+<script>
+// ============================================================
+// COSTANTI
+// ============================================================
+const LOCK_HOURS = 12;
+const TEST_LOCK_SECONDS = 10;
+const ARCHIVE_EVERY = 7;
+const TEST_ARCHIVE_EVERY = 3;
+const STORAGE_KEY = "nulla-dies-state-v1";
+const TEST_MODE_KEY = "nulla-dies-test-mode";
+
+// ============================================================
+// STATO
+// ============================================================
+let state = {
+  sentences: [],
+  currentChainId: 1,
+  pendingIncipit: null,
+  lastWrittenAt: null,
+  archiveUnlocked: false,
+  archiveViewedAtCount: 0,
+  chainTitles: {}, // { [chainId]: "titolo" }
+};
+let testMode = false;
+let phase = "writing"; // writing | choosing-finale | locked | archive
+let draft = "";
+let finaleOptions = null;
+let testPanelOpen = false;
+
+function lockMs() { return testMode ? TEST_LOCK_SECONDS * 1000 : LOCK_HOURS * 3600000; }
+function archiveEvery() { return testMode ? TEST_ARCHIVE_EVERY : ARCHIVE_EVERY; }
+
+// ============================================================
+// PERSISTENZA — localStorage
+// ============================================================
+function loadState() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (raw) state = JSON.parse(raw);
+  } catch (e) { console.error("Load fail", e); }
+  // retro-compatibilità: assicurati che chainTitles esista
+  if (!state.chainTitles) state.chainTitles = {};
+  try {
+    testMode = localStorage.getItem(TEST_MODE_KEY) === "true";
+  } catch (e) {}
+}
+function saveState() {
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }
+  catch (e) { console.error("Save fail", e); }
+}
+function saveTestMode() {
+  try { localStorage.setItem(TEST_MODE_KEY, testMode ? "true" : "false"); }
+  catch (e) {}
+}
+
+// ============================================================
+// EURISTICA FINALE ITALIANO
+// ============================================================
+const FUNCTIONAL_WORDS = new Set([
+  "a","ad","al","allo","alla","ai","agli","alle",
+  "in","nel","nello","nella","nei","negli","nelle",
+  "di","del","dello","della","dei","degli","delle",
+  "da","dal","dallo","dalla","dai","dagli","dalle",
+  "su","sul","sullo","sulla","sui","sugli","sulle",
+  "con","col","collo","colla","coi","cogli","colle",
+  "per","tra","fra",
+  "il","lo","la","i","gli","le","un","uno","una",
+  "mio","mia","miei","mie","tuo","tua","tuoi","tue",
+  "suo","sua","suoi","sue","nostro","nostra","nostri","nostre",
+  "vostro","vostra","vostri","vostre","loro",
+  "questo","questa","questi","queste","quel","quello","quella","quei","quegli","quelle",
+  "e","ed","o","od","ma","che",
+]);
+
+// Parole che FERMANO l'estensione all'indietro (verbi comuni e simili).
+// Sono parole davanti alle quali NON vogliamo estendere il sintagma.
+const STOPPER_WORDS = new Set([
+  // essere
+  "è","sono","sei","siamo","siete","era","erano","eri","eravamo","eravate",
+  "fu","furono","fui","fummo","foste","sarò","sarai","sarà","saremo","sarete","saranno",
+  "sarei","saresti","sarebbe","saremmo","sareste","sarebbero",
+  "sia","siano","fosse","fossero","fossi","fossimo","foste",
+  "stato","stata","stati","state","essere","essendo",
+  // avere
+  "ho","hai","ha","abbiamo","avete","hanno",
+  "avevo","avevi","aveva","avevamo","avevate","avevano",
+  "ebbi","ebbe","ebbero","avemmo","aveste",
+  "avrò","avrai","avrà","avremo","avrete","avranno",
+  "avrei","avresti","avrebbe","avremmo","avreste","avrebbero",
+  "abbia","abbiano","avessi","avesse","avessimo","aveste","avessero",
+  "avuto","avuta","avuti","avute","avere","avendo",
+  // verbi modali
+  "può","posso","puoi","possiamo","potete","possono","potrei","potresti","potrebbe","potrebbero","potuto",
+  "deve","devo","devi","dobbiamo","dovete","devono","dovrei","dovresti","dovrebbe","dovrebbero","dovuto",
+  "vuole","voglio","vuoi","vogliamo","volete","vogliono","vorrei","vorresti","vorrebbe","vorrebbero","voluto",
+  // verbi di moto/percezione molto frequenti
+  "vado","vai","va","andiamo","andate","vanno","andavo","andava","andavano","andato","andata","andati","andate",
+  "vedo","vedi","vede","vediamo","vedete","vedono","vedevo","vedeva","vedevano","visto","vista","visti","viste",
+  "dice","dico","dici","diciamo","dite","dicono","diceva","dicevano","detto","detta","detti","dette",
+  "fa","fai","faccio","facciamo","fate","fanno","faceva","facevano","fatto","fatta","fatti","fatte",
+  // congiunzioni che chiudono
+  "ma","però","tuttavia","quindi","perciò","mentre","poiché","perché","sebbene","benché","cioè","ovvero",
+]);
+
+function isFunctional(t) { return FUNCTIONAL_WORDS.has(t); }
+function isStopper(t) { return STOPPER_WORDS.has(t); }
+
+// Euristica del finale: produce tre livelli.
+// - netto: solo l'ultima parola
+// - sfumato: nucleo + modificatori "prossimi" (1-2 token immediatamente prima)
+// - sfumatissimo: estende il sintagma fino a un verbo/stopper o virgola
+function extractFinaleOptions(text) {
+  const clean = text.trim().replace(/[.!?…»"']+$/g, "").trim();
+  if (!clean) return null;
+  const tokens = clean.split(/\s+/);
+  if (tokens.length === 0) return null;
+  const cleanToken = (t) => t.replace(/[,;:.!?…»"']+/g, "");
+  const netto = cleanToken(tokens[tokens.length - 1]);
+  if (tokens.length === 1) {
+    return { netto, sfumato: netto, sfumatissimo: netto };
+  }
+
+  // Trova il primo indice "valido" andando all'indietro, fermandosi su:
+  // - stopper (verbi, congiunzioni forti)
+  // - punteggiatura forte (virgola, punto e virgola, due punti) alla fine del token precedente
+  // Restituisce un array di indici candidati (dal più lontano al più vicino).
+  const validIndices = [tokens.length - 1]; // l'ultimo è sempre incluso
+  for (let i = tokens.length - 2; i >= 0; i--) {
+    if (tokens[i].endsWith(",") || tokens[i].endsWith(";") || tokens[i].endsWith(":")) break;
+    const t = cleanToken(tokens[i]).toLowerCase();
+    if (!t) break;
+    if (isStopper(t)) break;
+    validIndices.push(i);
+    // limite di sicurezza: non andiamo oltre 8 token totali
+    if (validIndices.length >= 8) break;
+  }
+  // validIndices è ora in ordine "dal più recente al più lontano".
+  // Riconvertiamo in ordine di posizione: il primo è l'indice più piccolo.
+  validIndices.sort((a, b) => a - b);
+
+  // L'ultimo elemento è il nucleo (es. "bello"), l'indice più piccolo è il più lontano (es. "davvero").
+  const coreIdx = validIndices[validIndices.length - 1];
+  const farthestIdx = validIndices[0];
+
+  // SFUMATISSIMO: tutto il range valido
+  const sfumatissimo = tokens.slice(farthestIdx, coreIdx + 1).join(" ").replace(/[,;:.!?…»"']+$/g, "");
+
+  // SFUMATO: il sintagma minimo che determina il nucleo.
+  // Regola: cammina indietro dal nucleo includendo parole *contigue*.
+  //  - Se trovi una funzionale (preposizione/articolo/possessivo/dimostrativo),
+  //    includila e continua: vuoi raccogliere tutto il "blocco" determinante.
+  //  - Se non hai ancora trovato nessuna funzionale e incontri un non-funzionale
+  //    (modificatore: aggettivo/avverbio), includilo e poi continua per raccogliere
+  //    eventuali funzionali prima di esso (es. "molto bello" + ne, oppure "una cosa bella").
+  //  - Appena, dopo aver chiuso il "primo blocco determinante", incontri di nuovo
+  //    qualcosa di non-funzionale (un secondo modificatore o un altro sintagma), FERMATI.
+  let sfumatoStart = coreIdx;
+  let foundDeterminer = false;     // hai incluso almeno una funzionale?
+  let modifiersBeforeDet = 0;       // modificatori non-funzionali presi prima di trovare una funzionale
+  for (let j = validIndices.length - 2; j >= 0; j--) {
+    const idx = validIndices[j];
+    const t = cleanToken(tokens[idx]).toLowerCase();
+    if (isFunctional(t)) {
+      sfumatoStart = idx;
+      foundDeterminer = true;
+      continue;
+    }
+    // non-funzionale
+    if (foundDeterminer) {
+      // abbiamo già un blocco determinante: ulteriori non-funzionali sono fuori sintagma
+      break;
+    }
+    // non abbiamo ancora trovato funzionali: includi UN modificatore e poi fermati
+    if (modifiersBeforeDet < 1) {
+      sfumatoStart = idx;
+      modifiersBeforeDet++;
+      continue;
+    }
+    break;
+  }
+  const sfumato = tokens.slice(sfumatoStart, coreIdx + 1).join(" ").replace(/[,;:.!?…»"']+$/g, "");
+
+  return { netto, sfumato, sfumatissimo };
+}
+
+function capitalize(s) {
+  if (!s) return s;
+  return s.charAt(0).toUpperCase() + s.slice(1);
+}
+
+function escapeHtml(s) {
+  return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+}
+function escapeRegex(s) {
+  return s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+function formatRemaining(ms) {
+  if (ms <= 0) return "0h 00m";
+  const h = Math.floor(ms / 3600000);
+  const m = Math.floor((ms % 3600000) / 60000);
+  return `${h}h ${String(m).padStart(2, "0")}m`;
+}
+function formatRemainingShort(ms) {
+  return `${Math.max(0, Math.ceil(ms / 1000))}s`;
+}
+function formatDate(ts) {
+  const d = new Date(ts);
+  return d.toLocaleDateString("it-IT", { day: "numeric", month: "long", year: "numeric" }) +
+    " · " + d.toLocaleTimeString("it-IT", { hour: "2-digit", minute: "2-digit" });
+}
+
+// ============================================================
+// LOGICA DI FASE
+// ============================================================
+function computePhase() {
+  if (state.lastWrittenAt && Date.now() - state.lastWrittenAt < lockMs()) {
+    return "locked";
+  }
+  return "writing";
+}
+
+function proposeFinale() {
+  const text = document.getElementById("draft").value.trim();
+  if (!text) return;
+  if (state.pendingIncipit && !text.toLowerCase().startsWith(state.pendingIncipit.toLowerCase())) {
+    alert(`La frase deve cominciare con "${state.pendingIncipit}".`);
+    return;
+  }
+  const opts = extractFinaleOptions(text);
+  if (!opts) return;
+  draft = text;
+  finaleOptions = opts;
+  phase = "choosing-finale";
+  render();
+}
+
+function confirmFinale(which) {
+  if (!finaleOptions) return;
+  const chosen = finaleOptions[which];
+  const newIncipit = capitalize(chosen);
+  const nowTs = Date.now();
+  state.sentences.push({
+    id: String(nowTs),
+    text: draft,
+    finale: chosen,
+    writtenAt: nowTs,
+    chainId: state.currentChainId,
+  });
+  state.pendingIncipit = newIncipit;
+  state.lastWrittenAt = nowTs;
+  saveState();
+  draft = "";
+  finaleOptions = null;
+  phase = "locked";
+  render();
+}
+
+function cancelFinaleChoice() {
+  finaleOptions = null;
+  phase = "writing";
+  render();
+}
+
+function closeChain() {
+  const currentSentences = state.sentences.filter(s => s.chainId === state.currentChainId);
+  if (currentSentences.length === 0) {
+    // catena vuota: ricomincia senza titolo
+    state.pendingIncipit = null;
+    saveState();
+    draft = "";
+    flashMessage("catena vuota — ricominciata");
+    render();
+    return;
+  }
+  // mostra la schermata di chiusura
+  phase = "closing-chain";
+  render();
+}
+
+function confirmCloseChain(titleInput) {
+  const title = (titleInput || "").trim();
+  if (title) {
+    state.chainTitles[state.currentChainId] = title;
+  }
+  state.currentChainId += 1;
+  state.pendingIncipit = null;
+  saveState();
+  draft = "";
+  phase = "writing";
+  flashMessage("catena chiusa");
+  render();
+}
+
+function cancelCloseChain() {
+  phase = "writing";
+  render();
+}
+
+function renameChain(chainId) {
+  const current = state.chainTitles[chainId] || "";
+  showInputModal(
+    "Rinomina catena",
+    "Titolo:",
+    current,
+    "es. piccola elegia",
+    (value) => {
+      if (value === null) return;
+      const t = value.trim();
+      if (t) state.chainTitles[chainId] = t;
+      else delete state.chainTitles[chainId];
+      saveState();
+      flashMessage("titolo aggiornato");
+      render();
+    }
+  );
+}
+
+// Modal generico per input testo (sostituisce prompt() che è bloccato in alcuni contesti)
+function showInputModal(title, label, initialValue, placeholder, callback) {
+  // rimuovi modal esistente se presente
+  const existing = document.getElementById("modal-overlay");
+  if (existing) existing.remove();
+
+  const overlay = document.createElement("div");
+  overlay.id = "modal-overlay";
+  overlay.className = "modal-overlay";
+  overlay.innerHTML = `
+    <div class="modal-panel">
+      <h3 class="modal-title">${escapeHtml(title)}</h3>
+      <label class="modal-label">${escapeHtml(label)}</label>
+      <input id="modal-input" type="text" class="modal-input" value="${escapeHtml(initialValue)}" placeholder="${escapeHtml(placeholder)}" maxlength="200" />
+      <div class="modal-actions">
+        <button class="btn-tertiary" id="modal-cancel">annulla</button>
+        <button class="btn-primary" id="modal-ok">conferma</button>
+      </div>
+    </div>
+  `;
+  document.body.appendChild(overlay);
+  const input = document.getElementById("modal-input");
+  input.focus();
+  input.select();
+  const close = (value) => {
+    overlay.remove();
+    callback(value);
+  };
+  document.getElementById("modal-cancel").onclick = () => close(null);
+  document.getElementById("modal-ok").onclick = () => close(input.value);
+  input.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") { e.preventDefault(); close(input.value); }
+    if (e.key === "Escape") { e.preventDefault(); close(null); }
+  });
+  overlay.addEventListener("click", (e) => {
+    if (e.target === overlay) close(null);
+  });
+}
+
+function getChainPlainText(chainId) {
+  const sentences = state.sentences.filter(s => s.chainId === chainId);
+  const title = state.chainTitles[chainId];
+  let out = "";
+  if (title) out += title + "\n\n";
+  out += sentences.map(s => s.text).join(" ");
+  return out;
+}
+
+function copyChain(chainId) {
+  const text = getChainPlainText(chainId);
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).then(
+      () => flashMessage("testo copiato"),
+      () => fallbackCopy(text)
+    );
+  } else {
+    fallbackCopy(text);
+  }
+}
+
+function fallbackCopy(text) {
+  const ta = document.createElement("textarea");
+  ta.value = text;
+  ta.style.position = "fixed";
+  ta.style.opacity = "0";
+  document.body.appendChild(ta);
+  ta.select();
+  try {
+    document.execCommand("copy");
+    flashMessage("testo copiato");
+  } catch (e) {
+    flashMessage("copia non riuscita");
+  }
+  document.body.removeChild(ta);
+}
+
+function exportChain(chainId) {
+  const text = getChainPlainText(chainId);
+  const title = state.chainTitles[chainId] || `catena-${chainId}`;
+  const safeFilename = title.toLowerCase()
+    .replace(/[^a-z0-9àèéìòù\s-]/gi, "")
+    .replace(/\s+/g, "-")
+    .substring(0, 60) || `catena-${chainId}`;
+
+  let downloadSucceeded = false;
+  try {
+    const blob = new Blob([text], { type: "text/plain;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = safeFilename + ".txt";
+    a.style.display = "none";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+    downloadSucceeded = true;
+    flashMessage("file scaricato");
+  } catch (e) {
+    console.error("download fail:", e);
+  }
+
+  // Fallback: se il download non funziona (artefatti iframe, iOS in-app),
+  // mostra il testo in un overlay copiabile.
+  if (!downloadSucceeded) {
+    showTextOverlay(title, text);
+  }
+}
+
+function showTextOverlay(title, text) {
+  const existing = document.getElementById("modal-overlay");
+  if (existing) existing.remove();
+  const overlay = document.createElement("div");
+  overlay.id = "modal-overlay";
+  overlay.className = "modal-overlay";
+  overlay.innerHTML = `
+    <div class="modal-panel modal-large">
+      <h3 class="modal-title">${escapeHtml(title)}</h3>
+      <p class="modal-label">il download non è disponibile in questo contesto. seleziona e copia il testo:</p>
+      <textarea readonly class="modal-textarea" id="overlay-text"></textarea>
+      <div class="modal-actions">
+        <button class="btn-tertiary" id="modal-cancel">chiudi</button>
+        <button class="btn-primary" id="modal-copy">copia tutto</button>
+      </div>
+    </div>
+  `;
+  document.body.appendChild(overlay);
+  const ta = document.getElementById("overlay-text");
+  ta.value = text;
+  ta.focus();
+  ta.select();
+  document.getElementById("modal-cancel").onclick = () => overlay.remove();
+  document.getElementById("modal-copy").onclick = () => {
+    ta.select();
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(
+        () => { flashMessage("copiato"); overlay.remove(); },
+        () => { try { document.execCommand("copy"); flashMessage("copiato"); overlay.remove(); } catch(e){} }
+      );
+    } else {
+      try { document.execCommand("copy"); flashMessage("copiato"); overlay.remove(); } catch(e){}
+    }
+  };
+  overlay.addEventListener("click", (e) => {
+    if (e.target === overlay) overlay.remove();
+  });
+}
+
+function countClosedChains() {
+  // catene chiuse = ID univoci nelle frasi, escludendo la catena corrente
+  const ids = new Set();
+  state.sentences.forEach(s => {
+    if (s.chainId !== state.currentChainId) ids.add(s.chainId);
+  });
+  return ids.size;
+}
+
+function flashMessage(msg) {
+  const el = document.createElement("div");
+  el.className = "flash-message";
+  el.textContent = msg;
+  document.body.appendChild(el);
+  setTimeout(() => {
+    el.style.opacity = "0";
+    setTimeout(() => el.remove(), 300);
+  }, 1400);
+}
+
+function openConcluse() {
+  phase = "concluse";
+  render();
+}
+
+function openInCorso() {
+  state.archiveUnlocked = true;
+  state.archiveViewedAtCount = state.sentences.length;
+  saveState();
+  phase = "in-corso";
+  render();
+}
+
+function closeArchiveView() {
+  state.archiveUnlocked = false;
+  saveState();
+  phase = computePhase();
+  render();
+}
+
+// ============================================================
+// IMPORT / EXPORT JSON
+// ============================================================
+function exportAllData() {
+  const payload = {
+    app: "nulla-dies-sine-linea",
+    version: 1,
+    exportedAt: new Date().toISOString(),
+    state: state,
+  };
+  const text = JSON.stringify(payload, null, 2);
+  const dateStr = new Date().toISOString().slice(0, 10);
+  const filename = `nulla-dies-backup-${dateStr}.json`;
+
+  let downloadSucceeded = false;
+  try {
+    const blob = new Blob([text], { type: "application/json;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = filename;
+    a.style.display = "none";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+    downloadSucceeded = true;
+    flashMessage("backup scaricato");
+  } catch (e) { console.error(e); }
+
+  if (!downloadSucceeded) {
+    showTextOverlay("backup JSON", text);
+  }
+}
+
+function importDataFromFile() {
+  // crea un input file invisibile
+  const input = document.createElement("input");
+  input.type = "file";
+  input.accept = ".json,application/json";
+  input.style.display = "none";
+  input.addEventListener("change", (e) => {
+    const file = e.target.files && e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (ev) => {
+      try {
+        const text = ev.target.result;
+        processImportText(text);
+      } catch (err) {
+        alertModal("Errore nell'importazione: " + err.message);
+      }
+    };
+    reader.onerror = () => alertModal("Lettura del file fallita");
+    reader.readAsText(file);
+  });
+  document.body.appendChild(input);
+  input.click();
+  setTimeout(() => input.remove(), 1000);
+}
+
+function importDataFromPaste() {
+  showInputModalLarge(
+    "Importa da JSON",
+    "Incolla qui il contenuto del file JSON di backup:",
+    "",
+    (value) => {
+      if (value === null || !value.trim()) return;
+      processImportText(value);
+    }
+  );
+}
+
+function processImportText(text) {
+  let payload;
+  try {
+    payload = JSON.parse(text);
+  } catch (e) {
+    alertModal("Il testo non è un JSON valido.");
+    return;
+  }
+  if (!payload || !payload.state) {
+    alertModal("Il file non sembra un backup valido (manca 'state').");
+    return;
+  }
+  const incoming = payload.state;
+  if (!Array.isArray(incoming.sentences)) {
+    alertModal("Il backup è malformato: 'sentences' non è un array.");
+    return;
+  }
+  // chiedi se sostituire o unire
+  showChoiceModal(
+    "Importazione",
+    `Trovate ${incoming.sentences.length} frase/i in ${new Set(incoming.sentences.map(s=>s.chainId)).size} catena/e. Vuoi sostituire i dati attuali o unirli?`,
+    [
+      { label: "annulla", value: null },
+      { label: "unisci", value: "merge" },
+      { label: "sostituisci", value: "replace" },
+    ],
+    (choice) => {
+      if (!choice) return;
+      if (choice === "replace") {
+        state = {
+          sentences: incoming.sentences || [],
+          currentChainId: incoming.currentChainId || 1,
+          pendingIncipit: incoming.pendingIncipit || null,
+          lastWrittenAt: incoming.lastWrittenAt || null,
+          archiveUnlocked: false,
+          archiveViewedAtCount: 0,
+          chainTitles: incoming.chainTitles || {},
+        };
+      } else {
+        // unisci: shift degli ID delle catene importate per non collidere
+        const maxLocalChain = state.sentences.reduce((m, s) => Math.max(m, s.chainId), 0);
+        const offset = Math.max(maxLocalChain, state.currentChainId);
+        const shiftedSentences = (incoming.sentences || []).map(s => ({
+          ...s,
+          chainId: s.chainId + offset,
+          id: s.id + "-imp", // evita collisioni di ID
+        }));
+        const shiftedTitles = {};
+        Object.keys(incoming.chainTitles || {}).forEach(k => {
+          shiftedTitles[parseInt(k, 10) + offset] = incoming.chainTitles[k];
+        });
+        state.sentences = state.sentences.concat(shiftedSentences);
+        state.chainTitles = { ...state.chainTitles, ...shiftedTitles };
+      }
+      saveState();
+      flashMessage("importazione completata");
+      phase = "writing";
+      if (state.pendingIncipit) draft = state.pendingIncipit + " ";
+      else draft = "";
+      render();
+    }
+  );
+}
+
+function alertModal(message) {
+  showChoiceModal("Avviso", message, [{ label: "ok", value: true }], () => {});
+}
+
+function showChoiceModal(title, message, choices, callback) {
+  const existing = document.getElementById("modal-overlay");
+  if (existing) existing.remove();
+  const overlay = document.createElement("div");
+  overlay.id = "modal-overlay";
+  overlay.className = "modal-overlay";
+  const buttonsHtml = choices.map((c, i) =>
+    `<button class="${i === choices.length - 1 ? 'btn-primary' : 'btn-tertiary'}" data-choice-idx="${i}">${escapeHtml(c.label)}</button>`
+  ).join("");
+  overlay.innerHTML = `
+    <div class="modal-panel">
+      <h3 class="modal-title">${escapeHtml(title)}</h3>
+      <p class="modal-message">${escapeHtml(message)}</p>
+      <div class="modal-actions">${buttonsHtml}</div>
+    </div>
+  `;
+  document.body.appendChild(overlay);
+  overlay.querySelectorAll("[data-choice-idx]").forEach(btn => {
+    btn.onclick = () => {
+      const idx = parseInt(btn.dataset.choiceIdx, 10);
+      overlay.remove();
+      callback(choices[idx].value);
+    };
+  });
+  overlay.addEventListener("click", (e) => {
+    if (e.target === overlay) { overlay.remove(); callback(null); }
+  });
+}
+
+function showInputModalLarge(title, label, initialValue, callback) {
+  const existing = document.getElementById("modal-overlay");
+  if (existing) existing.remove();
+  const overlay = document.createElement("div");
+  overlay.id = "modal-overlay";
+  overlay.className = "modal-overlay";
+  overlay.innerHTML = `
+    <div class="modal-panel modal-large">
+      <h3 class="modal-title">${escapeHtml(title)}</h3>
+      <p class="modal-label">${escapeHtml(label)}</p>
+      <textarea id="modal-textarea" class="modal-textarea" placeholder="incolla qui">${escapeHtml(initialValue)}</textarea>
+      <div class="modal-actions">
+        <button class="btn-tertiary" id="modal-cancel">annulla</button>
+        <button class="btn-primary" id="modal-ok">importa</button>
+      </div>
+    </div>
+  `;
+  document.body.appendChild(overlay);
+  const ta = document.getElementById("modal-textarea");
+  ta.focus();
+  const close = (value) => { overlay.remove(); callback(value); };
+  document.getElementById("modal-cancel").onclick = () => close(null);
+  document.getElementById("modal-ok").onclick = () => close(ta.value);
+  overlay.addEventListener("click", (e) => {
+    if (e.target === overlay) close(null);
+  });
+}
+
+// ============================================================
+// TEST CONTROLS
+// ============================================================
+function toggleTestMode() {
+  testMode = !testMode;
+  saveTestMode();
+  render();
+}
+function skipLock() {
+  state.lastWrittenAt = null;
+  saveState();
+  phase = "writing";
+  render();
+}
+let resetConfirmPending = false;
+function resetAll() {
+  if (!resetConfirmPending) {
+    resetConfirmPending = true;
+    const btn = document.getElementById("tb-reset");
+    if (btn) {
+      btn.textContent = "conferma cancellazione";
+      btn.classList.add("danger-confirm");
+    }
+    // ripristina dopo 4 secondi se non confermato
+    setTimeout(() => {
+      if (resetConfirmPending) {
+        resetConfirmPending = false;
+        const b = document.getElementById("tb-reset");
+        if (b) {
+          b.textContent = "cancella tutto";
+          b.classList.remove("danger-confirm");
+        }
+      }
+    }, 4000);
+    return;
+  }
+  resetConfirmPending = false;
+  state = {
+    sentences: [], currentChainId: 1, pendingIncipit: null,
+    lastWrittenAt: null, archiveUnlocked: false, archiveViewedAtCount: 0,
+    chainTitles: {},
+  };
+  saveState();
+  draft = "";
+  phase = "writing";
+  testPanelOpen = false;
+  flashMessage("tutto cancellato");
+  render();
+}
+function toggleTestPanel() {
+  testPanelOpen = !testPanelOpen;
+  renderTestPanel();
+}
+
+// ============================================================
+// TEXTAREA: blocco dell'incipit
+// ============================================================
+function attachTextareaGuards(ta) {
+  if (!state.pendingIncipit) return;
+  const prefix = state.pendingIncipit + " ";
+  ta.value = (draft && draft.startsWith(prefix)) ? draft : prefix;
+  draft = ta.value;
+
+  ta.addEventListener("input", () => {
+    if (!ta.value.startsWith(prefix)) {
+      const rest = ta.value.replace(new RegExp("^" + escapeRegex(prefix.slice(0, ta.value.length))), "");
+      ta.value = prefix + rest;
+    }
+    draft = ta.value;
+  });
+  ta.addEventListener("keydown", (e) => {
+    if (e.key === "Backspace" && ta.selectionStart <= prefix.length && ta.selectionEnd <= prefix.length) {
+      e.preventDefault();
+    }
+    if (e.key === "Delete" && ta.selectionStart < prefix.length) {
+      e.preventDefault();
+    }
+  });
+  const clampCursor = () => {
+    if (ta.selectionStart < prefix.length) {
+      ta.setSelectionRange(prefix.length, Math.max(prefix.length, ta.selectionEnd));
+    }
+  };
+  ta.addEventListener("click", clampCursor);
+  ta.addEventListener("keyup", clampCursor);
+  ta.addEventListener("focus", () => {
+    setTimeout(() => {
+      if (ta.selectionStart < prefix.length) {
+        ta.setSelectionRange(ta.value.length, ta.value.length);
+      }
+    }, 0);
+  });
+}
+
+// ============================================================
+// RENDER
+// ============================================================
+function render() {
+  // counter
+  const counter = document.getElementById("counter");
+  if (state.sentences.length > 0) {
+    counter.innerHTML = `
+      <span class="counter-num">${state.sentences.length}</span>
+      <span class="counter-label">frasi · catena ${state.currentChainId}</span>
+    `;
+  } else counter.innerHTML = "";
+
+  // ---- pulsanti fissi in basso ----
+  const concluseBtn = document.getElementById("concluse-trigger");
+  const incorsoBtn = document.getElementById("incorso-trigger");
+  const incorsoLockedLabel = document.getElementById("incorso-locked-label");
+
+  const closedChainCount = countClosedChains();
+  const currentChainSentenceCount = state.sentences.filter(s => s.chainId === state.currentChainId).length;
+  const inCorsoEligible = currentChainSentenceCount > 0 &&
+    state.sentences.length - state.archiveViewedAtCount >= archiveEvery();
+
+  const inArchiveView = phase === "concluse" || phase === "in-corso";
+
+  if (!inArchiveView && closedChainCount > 0) {
+    concluseBtn.classList.remove("hidden");
+    concluseBtn.textContent = `concluse · ${closedChainCount}`;
+    concluseBtn.onclick = openConcluse;
+  } else {
+    concluseBtn.classList.add("hidden");
+  }
+
+  if (!inArchiveView && inCorsoEligible) {
+    incorsoBtn.classList.remove("hidden");
+    incorsoBtn.textContent = `in corso · ${currentChainSentenceCount} frasi`;
+    incorsoBtn.onclick = openInCorso;
+    incorsoLockedLabel.classList.add("hidden");
+  } else if (!inArchiveView && currentChainSentenceCount > 0) {
+    incorsoBtn.classList.add("hidden");
+    incorsoLockedLabel.classList.remove("hidden");
+    const togo = archiveEvery() - (state.sentences.length - state.archiveViewedAtCount);
+    incorsoLockedLabel.textContent = `in corso: ancora ${togo}`;
+  } else {
+    incorsoBtn.classList.add("hidden");
+    incorsoLockedLabel.classList.add("hidden");
+  }
+
+  // main
+  const main = document.getElementById("main");
+  if (phase === "writing") {
+    main.innerHTML = renderWriting();
+    const ta = document.getElementById("draft");
+    if (state.pendingIncipit) {
+      attachTextareaGuards(ta);
+    } else {
+      ta.value = draft;
+      ta.addEventListener("input", () => { draft = ta.value; });
+    }
+    ta.focus();
+    document.getElementById("btn-propose").onclick = proposeFinale;
+    const cc = document.getElementById("btn-close-chain");
+    if (cc) cc.onclick = closeChain;
+    ta.addEventListener("input", () => {
+      document.getElementById("btn-propose").disabled = !ta.value.trim();
+    });
+    document.getElementById("btn-propose").disabled = !ta.value.trim();
+  } else if (phase === "choosing-finale") {
+    main.innerHTML = renderFinaleChoice();
+    document.getElementById("btn-cancel").onclick = cancelFinaleChoice;
+    document.getElementById("btn-netto").onclick = () => confirmFinale("netto");
+    const sfBtn = document.getElementById("btn-sfumato");
+    if (sfBtn && !sfBtn.disabled) sfBtn.onclick = () => confirmFinale("sfumato");
+    const sfissimoBtn = document.getElementById("btn-sfumatissimo");
+    if (sfissimoBtn && !sfissimoBtn.disabled) sfissimoBtn.onclick = () => confirmFinale("sfumatissimo");
+  } else if (phase === "closing-chain") {
+    main.innerHTML = renderClosingChain();
+    const ti = document.getElementById("chain-title-input");
+    ti.focus();
+    document.getElementById("btn-confirm-close").onclick = () => confirmCloseChain(ti.value);
+    document.getElementById("btn-skip-title").onclick = () => confirmCloseChain("");
+    document.getElementById("btn-cancel-close").onclick = cancelCloseChain;
+    ti.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") {
+        e.preventDefault();
+        confirmCloseChain(ti.value);
+      }
+    });
+  } else if (phase === "locked") {
+    main.innerHTML = renderLocked();
+  } else if (phase === "concluse" || phase === "in-corso") {
+    main.innerHTML = renderArchiveSection(phase);
+    document.getElementById("btn-close-archive").onclick = closeArchiveView;
+    main.querySelectorAll(".chain-action").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const action = btn.dataset.action;
+        const cid = parseInt(btn.dataset.chain, 10);
+        if (action === "rename") renameChain(cid);
+        else if (action === "copy") copyChain(cid);
+        else if (action === "export") exportChain(cid);
+      });
+    });
+  }
+
+  renderTestPanel();
+}
+
+function renderWriting() {
+  const incipit = state.pendingIncipit;
+  return `
+    ${incipit
+      ? `<div class="incipit-frame">
+          <span class="incipit-label">incipit</span>
+          <span class="incipit-text">${escapeHtml(incipit)}</span>
+        </div>`
+      : `<div class="free-label">frase libera · scegli tu l'inizio</div>`
+    }
+    <textarea id="draft" placeholder="${incipit ? '' : "scrivi una frase…"}"></textarea>
+    <div class="actions-row">
+      ${incipit ? `<button id="btn-close-chain" class="btn-secondary">chiudi catena</button>` : `<span></span>`}
+      <button id="btn-propose" class="btn-primary">scegli finale →</button>
+    </div>
+  `;
+}
+
+function renderFinaleChoice() {
+  const opts = finaleOptions;
+  // evidenzia il sfumatissimo (la frase più ampia) nella preview
+  const target = opts.sfumatissimo;
+  const targetEscaped = escapeRegex(target);
+  const previewHtml = escapeHtml(draft).replace(
+    new RegExp("(" + targetEscaped.split(/\s+/).join("\\s+") + ")[.!?…]*$", "i"),
+    "<span class='preview-bright'>$1</span>"
+  );
+  // se i tre livelli sono identici (es. frase di una sola parola), mostra solo netto
+  const allSame = opts.netto === opts.sfumato && opts.sfumato === opts.sfumatissimo;
+  const nettoEqSfumato = opts.netto === opts.sfumato;
+  const sfumatoEqSfumatissimo = opts.sfumato === opts.sfumatissimo;
+
+  return `
+    <div class="finale-view">
+      <p class="finale-hint">scegli il finale che diventerà l'incipit della prossima frase</p>
+      <div class="preview"><span class="preview-dim">${previewHtml}</span></div>
+      <div class="choices three">
+        <button id="btn-netto" class="choice-card">
+          <div class="choice-label">netto</div>
+          <div class="choice-value">${escapeHtml(capitalize(opts.netto))}</div>
+          <div class="choice-desc">una sola parola</div>
+        </button>
+        <button id="btn-sfumato" class="choice-card" ${nettoEqSfumato ? 'disabled' : ''}>
+          <div class="choice-label">sfumato</div>
+          <div class="choice-value">${escapeHtml(capitalize(opts.sfumato))}</div>
+          <div class="choice-desc">sintagma minimo</div>
+        </button>
+        <button id="btn-sfumatissimo" class="choice-card" ${sfumatoEqSfumatissimo ? 'disabled' : ''}>
+          <div class="choice-label">sfumatissimo</div>
+          <div class="choice-value">${escapeHtml(capitalize(opts.sfumatissimo))}</div>
+          <div class="choice-desc">sintagma esteso</div>
+        </button>
+      </div>
+      <button id="btn-cancel" class="btn-tertiary">← torna alla scrittura</button>
+      <p class="warning">una volta scelto, l'incipit è incancellabile</p>
+    </div>
+  `;
+}
+
+function renderClosingChain() {
+  const currentSentences = state.sentences.filter(s => s.chainId === state.currentChainId);
+  const count = currentSentences.length;
+  const existingTitle = state.chainTitles[state.currentChainId] || "";
+  return `
+    <div class="closing-view">
+      <p class="finale-hint">stai per chiudere la catena ${state.currentChainId}</p>
+      <p class="closing-count">${count} frase${count === 1 ? '' : 'i'}</p>
+      <div class="closing-preview">
+        ${currentSentences.slice(-3).map(s => `<p class="closing-snippet">${escapeHtml(s.text)}</p>`).join("")}
+        ${count > 3 ? `<p class="closing-more">… e altre ${count - 3}</p>` : ""}
+      </div>
+      <label class="closing-label">dai un titolo (facoltativo)</label>
+      <input id="chain-title-input" class="closing-input" type="text" value="${escapeHtml(existingTitle)}" placeholder="es. piccola elegia" maxlength="100" />
+      <div class="closing-actions">
+        <button id="btn-cancel-close" class="btn-tertiary">← annulla</button>
+        <div class="closing-actions-right">
+          <button id="btn-skip-title" class="btn-secondary">senza titolo</button>
+          <button id="btn-confirm-close" class="btn-primary">chiudi catena</button>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function renderLocked() {
+  const remaining = lockMs() - (Date.now() - state.lastWrittenAt);
+  const timeStr = testMode ? formatRemainingShort(remaining) : formatRemaining(remaining);
+  return `
+    <div class="locked-view">
+      <div class="lock-symbol">·</div>
+      <p class="locked-line">la prossima frase tra</p>
+      <p class="locked-time">${timeStr}</p>
+      ${state.pendingIncipit ? `
+        <div class="pending-incipit-block">
+          <p class="pending-incipit-hint">ti aspetta l'incipit</p>
+          <p class="pending-incipit-text">${escapeHtml(state.pendingIncipit)}</p>
+        </div>` : ""}
+      <p class="unlock-at">sbloccaggio: ${formatDate(state.lastWrittenAt + lockMs())}</p>
+    </div>
+  `;
+}
+
+function renderArchiveSection(which) {
+  // which: "concluse" o "in-corso"
+  const isConcluse = which === "concluse";
+
+  const chains = {};
+  state.sentences.forEach(s => {
+    if (!chains[s.chainId]) chains[s.chainId] = [];
+    chains[s.chainId].push(s);
+  });
+
+  let chainIds = Object.keys(chains).map(Number);
+  if (isConcluse) {
+    chainIds = chainIds.filter(id => id !== state.currentChainId);
+  } else {
+    chainIds = chainIds.filter(id => id === state.currentChainId);
+  }
+  chainIds.sort((a, b) => b - a);
+
+  const sectionTitle = isConcluse ? "concluse" : "in corso";
+  const sectionSubtitle = isConcluse
+    ? `${chainIds.length} caten${chainIds.length === 1 ? 'a' : 'e'}`
+    : `catena ${state.currentChainId}`;
+
+  if (chainIds.length === 0) {
+    return `
+      <div class="archive-header">
+        <div class="archive-title-block">
+          <h2 class="archive-title">${sectionTitle}</h2>
+        </div>
+        <button id="btn-close-archive" class="btn-tertiary">chiudi</button>
+      </div>
+      <div class="empty-section">
+        <p class="empty-text">${isConcluse
+          ? "non hai ancora concluso nessuna catena.<br>quando ne chiuderai una, comparirà qui."
+          : "non hai ancora scritto nessuna frase in questa catena."}</p>
+      </div>
+    `;
+  }
+
+  const chainsHtml = chainIds.map(cid => {
+    const title = state.chainTitles[cid];
+    const titleBlock = title
+      ? `<h4 class="chain-title-text">${escapeHtml(title)}</h4>`
+      : `<h4 class="chain-title-text chain-title-untitled">senza titolo</h4>`;
+    return `
+      <div class="chain-block">
+        <div class="chain-header">
+          <div class="chain-header-left">
+            <span class="chain-label">catena ${cid} · ${chains[cid].length} frasi</span>
+            ${titleBlock}
+          </div>
+          <div class="chain-actions">
+            <button class="chain-action" data-action="rename" data-chain="${cid}" title="rinomina">✎</button>
+            <button class="chain-action" data-action="copy" data-chain="${cid}" title="copia testo">⎘</button>
+            <button class="chain-action" data-action="export" data-chain="${cid}" title="esporta .txt">↓</button>
+          </div>
+        </div>
+        <div class="chain-sentences">
+          ${chains[cid].map((s, i) => `
+            <div class="archived-sentence">
+              <span class="archived-index">${String(i + 1).padStart(2, "0")}</span>
+              <div class="archived-body">
+                <p class="archived-text">${escapeHtml(s.text)}</p>
+                <p class="archived-meta">${formatDate(s.writtenAt)} · finale: <em>${escapeHtml(s.finale)}</em></p>
+              </div>
+            </div>
+          `).join("")}
+        </div>
+      </div>
+    `;
+  }).join("");
+
+  const footer = isConcluse
+    ? `<p class="archive-footer">le catene concluse sono sempre accessibili</p>`
+    : `<p class="archive-footer">la catena in corso si richiuderà tra le prossime ${archiveEvery()} frasi</p>`;
+
+  return `
+    <div class="archive-header">
+      <div class="archive-title-block">
+        <h2 class="archive-title">${sectionTitle}</h2>
+        <span class="archive-subtitle">${sectionSubtitle}</span>
+      </div>
+      <button id="btn-close-archive" class="btn-tertiary">chiudi</button>
+    </div>
+    ${chainsHtml}
+    ${footer}
+  `;
+}
+
+function renderTestPanel() {
+  const toggle = document.getElementById("test-toggle");
+  toggle.textContent = testMode ? "● DATI" : "◇ dati";
+  toggle.classList.toggle("active", testMode);
+
+  const panel = document.getElementById("test-panel");
+  if (!testPanelOpen) { panel.classList.add("hidden"); return; }
+  panel.classList.remove("hidden");
+  panel.innerHTML = `
+    <p class="test-panel-title">backup &amp; dati</p>
+    <button class="test-button accent" id="tb-export-json">⤓ esporta backup .json</button>
+    <button class="test-button accent" id="tb-import-file">⤒ importa da file</button>
+    <button class="test-button" id="tb-import-paste">⤒ importa incollando</button>
+
+    <hr class="test-divider"/>
+
+    <p class="test-panel-title">modalità sviluppo</p>
+    <p class="test-panel-desc">
+      ${testMode
+        ? `Lock: ${TEST_LOCK_SECONDS}s · Archivio ogni ${TEST_ARCHIVE_EVERY}`
+        : `Lock: ${LOCK_HOURS}h · Archivio ogni ${ARCHIVE_EVERY}`}
+    </p>
+    <button class="test-button" id="tb-toggle">${testMode ? "disattiva test mode" : "attiva test mode"}</button>
+    ${phase === "locked" ? `<button class="test-button" id="tb-skip">salta lock ora</button>` : ""}
+
+    <hr class="test-divider"/>
+
+    <button class="test-button danger" id="tb-reset">cancella tutto</button>
+    <p class="test-warning">Esporta un backup prima di cancellare. I dati cancellati non sono recuperabili.</p>
+  `;
+  document.getElementById("tb-export-json").onclick = exportAllData;
+  document.getElementById("tb-import-file").onclick = importDataFromFile;
+  document.getElementById("tb-import-paste").onclick = importDataFromPaste;
+  document.getElementById("tb-toggle").onclick = toggleTestMode;
+  const sk = document.getElementById("tb-skip");
+  if (sk) sk.onclick = skipLock;
+  document.getElementById("tb-reset").onclick = resetAll;
+}
+
+// ============================================================
+// TICK: aggiorna countdown e sblocca automaticamente
+// ============================================================
+function tick() {
+  if (phase === "locked") {
+    if (state.lastWrittenAt && Date.now() - state.lastWrittenAt >= lockMs()) {
+      phase = "writing";
+      render();
+    } else {
+      // aggiorna solo la stringa del countdown senza rifare tutto il render
+      const timeEl = document.querySelector(".locked-time");
+      if (timeEl) {
+        const remaining = lockMs() - (Date.now() - state.lastWrittenAt);
+        timeEl.textContent = testMode ? formatRemainingShort(remaining) : formatRemaining(remaining);
+      }
+    }
+  }
+}
+
+// ============================================================
+// INIT
+// ============================================================
+loadState();
+phase = computePhase();
+if (phase === "writing" && state.pendingIncipit) {
+  draft = state.pendingIncipit + " ";
+}
+render();
+setInterval(tick, 250);
+</script>
+
+</body>
+</html>
