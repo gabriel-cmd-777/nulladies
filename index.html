@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<meta name="theme-color" content="#0d1320">
+<meta name="theme-color" content="#102a33">
 <meta name="color-scheme" content="dark">
 <title>Nulla dies sine linea</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -11,23 +11,36 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
 <style>
 :root {
-  --bg: #0d1320;
-  --bg-elev: #1a2238;
-  --bg-elev-2: #232d48;
-  --ink: #f5efe0;
-  --ink-dim: #c4b89c;
-  --ink-faint: #8a8169;
-  --accent: #e9b87a;
-  --accent-bright: #f4c98a;
-  --accent-deep: #b88450;
-  --line: #3d4663;
-  --line-soft: #2a3247;
+  /* Sfondo: blu petrolio profondo */
+  --bg: #102a33;
+  --bg-elev: #163640;
+  --bg-elev-2: #1d4250;
+  /* Inchiostro: avorio caldo, mai bianco puro. */
+  --ink: #ece4cf;
+  --ink-dim: #b8ad94;
+  --ink-faint: #7a7363;
+  /* Accento: ambra-rame, vivo ma non gridato. */
+  --accent: #e0a36a;
+  --accent-bright: #f0b87a;
+  --accent-deep: #a0744a;
+  /* Linee: discrete. */
+  --line: #2d5260;
+  --line-soft: #1f3c47;
+  /* Spaziature standard (8px grid) */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
 html {
-  background: #0d1320 !important;
+  background: #102a33 !important;
   min-height: 100vh;
 }
 body {
@@ -36,16 +49,17 @@ body {
   color: var(--ink);
   font-family: 'Cormorant Garamond', Georgia, serif;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   background-image:
-    radial-gradient(circle at 15% 8%, rgba(212, 165, 116, 0.04) 0%, transparent 45%),
-    radial-gradient(circle at 85% 92%, rgba(212, 165, 116, 0.03) 0%, transparent 50%);
+    radial-gradient(circle at 20% 5%, rgba(224, 163, 106, 0.03) 0%, transparent 40%),
+    radial-gradient(circle at 80% 95%, rgba(224, 163, 106, 0.02) 0%, transparent 50%);
   background-attachment: fixed;
 }
 
 .app {
-  max-width: 720px;
+  max-width: 680px;
   margin: 0 auto;
-  padding: 36px 24px 100px;
+  padding: var(--space-7) var(--space-5) 120px;
   position: relative;
 }
 
@@ -53,37 +67,52 @@ body {
 .header {
   display: flex;
   justify-content: space-between;
-  align-items: flex-end;
-  border-bottom: 1px solid var(--line);
-  padding-bottom: 20px;
-  margin-bottom: 48px;
-  gap: 16px;
+  align-items: flex-start;
+  margin-bottom: var(--space-8);
+  gap: var(--space-4);
+  position: relative;
+}
+.header::after {
+  content: "";
+  position: absolute;
+  bottom: -24px;
+  left: 0;
+  width: 40px;
+  height: 1px;
+  background: var(--accent);
 }
 .title {
   font-family: 'Cormorant Garamond', serif;
-  font-weight: 500;
+  font-weight: 400;
   font-style: italic;
-  font-size: 30px;
-  letter-spacing: -0.01em;
-  line-height: 1.1;
+  font-size: 34px;
+  letter-spacing: -0.015em;
+  line-height: 1.05;
   color: var(--ink);
+}
+.title-line-2 {
+  display: block;
+  padding-left: 24px;
+  color: var(--accent);
 }
 .subtitle {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 9px;
+  font-size: 10px;
   color: var(--ink-faint);
   text-transform: uppercase;
-  letter-spacing: 0.25em;
-  margin-top: 6px;
+  letter-spacing: 0.3em;
+  margin-top: var(--space-3);
+  font-weight: 400;
 }
 .counter {
   text-align: right;
   white-space: nowrap;
+  padding-top: var(--space-1);
 }
 .counter-num {
   display: block;
   font-family: 'Cormorant Garamond', serif;
-  font-size: 30px;
+  font-size: 32px;
   font-weight: 400;
   color: var(--accent);
   font-style: italic;
@@ -94,8 +123,8 @@ body {
   font-size: 9px;
   color: var(--ink-faint);
   text-transform: uppercase;
-  letter-spacing: 0.2em;
-  margin-top: 4px;
+  letter-spacing: 0.25em;
+  margin-top: var(--space-2);
   display: block;
 }
 
@@ -114,87 +143,121 @@ body {
 
 /* ---- WRITING VIEW ---- */
 .incipit-frame {
-  background: var(--bg-elev);
-  padding: 18px 22px;
-  border-left: 2px solid var(--accent);
+  background: transparent;
+  padding: var(--space-3) 0 var(--space-4);
   display: flex;
   flex-direction: column;
-  gap: 6px;
-  margin-bottom: 24px;
+  gap: var(--space-2);
+  margin-bottom: var(--space-2);
+  position: relative;
+}
+.incipit-frame::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 14px;
+  width: 16px;
+  height: 1px;
+  background: var(--accent);
 }
 .incipit-label {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 9px;
+  font-size: 10px;
   text-transform: uppercase;
   letter-spacing: 0.3em;
   color: var(--ink-faint);
+  padding-left: 28px;
 }
 .incipit-text {
   font-family: 'Cormorant Garamond', serif;
-  font-size: 24px;
+  font-size: 26px;
   font-style: italic;
   font-weight: 500;
   color: var(--accent);
+  line-height: 1.2;
 }
 .free-label {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 9px;
+  font-size: 10px;
   text-transform: uppercase;
   letter-spacing: 0.3em;
   color: var(--ink-faint);
-  padding: 14px 0;
-  border-bottom: 1px dashed var(--line);
-  margin-bottom: 16px;
+  padding: var(--space-3) 0 var(--space-4);
+  margin-bottom: var(--space-2);
+  position: relative;
 }
+.free-label::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 14px;
+  width: 16px;
+  height: 1px;
+  background: var(--ink-faint);
+}
+.free-label-text { padding-left: 28px; }
+
 #draft {
   font-family: 'Cormorant Garamond', Georgia, serif;
-  font-size: 22px;
-  line-height: 1.55;
+  font-size: 24px;
+  line-height: 1.5;
   width: 100%;
-  min-height: 200px;
+  min-height: 220px;
   background: transparent;
   border: none;
-  border-bottom: 1px solid var(--line);
   outline: none;
   color: var(--ink);
   resize: none;
-  padding: 8px 0 16px;
+  padding: var(--space-2) 0 var(--space-4);
   caret-color: var(--accent);
 }
-#draft::placeholder { color: var(--ink-faint); font-style: italic; }
+#draft::placeholder {
+  color: var(--ink-faint);
+  font-style: italic;
+  opacity: 0.8;
+}
 .actions-row {
   display: flex;
   justify-content: space-between;
-  gap: 12px;
-  margin-top: 20px;
+  gap: var(--space-3);
+  margin-top: var(--space-4);
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--line-soft);
+  align-items: center;
 }
 button {
   cursor: pointer;
   font-family: 'JetBrains Mono', monospace;
-  transition: all 0.2s;
+  transition: all 0.18s ease;
 }
 button:disabled { cursor: not-allowed; opacity: 0.3; }
 .btn-primary {
   background: var(--accent);
   color: var(--bg);
-  border: none;
+  border: 1px solid var(--accent);
   padding: 14px 24px;
   font-size: 10px;
   text-transform: uppercase;
   letter-spacing: 0.25em;
   font-weight: 500;
 }
-.btn-primary:hover:not(:disabled) { background: var(--ink); }
+.btn-primary:hover:not(:disabled) {
+  background: var(--accent-bright);
+  border-color: var(--accent-bright);
+}
 .btn-secondary {
   background: transparent;
   color: var(--ink-dim);
   border: 1px solid var(--line);
-  padding: 13px 20px;
+  padding: 13px 18px;
   font-size: 9px;
   text-transform: uppercase;
   letter-spacing: 0.2em;
 }
-.btn-secondary:hover { border-color: var(--ink-dim); color: var(--ink); }
+.btn-secondary:hover {
+  border-color: var(--ink-dim);
+  color: var(--ink);
+}
 .btn-tertiary {
   background: transparent;
   color: var(--ink-faint);
@@ -203,8 +266,6 @@ button:disabled { cursor: not-allowed; opacity: 0.3; }
   font-size: 10px;
   text-transform: uppercase;
   letter-spacing: 0.2em;
-  text-decoration: underline;
-  text-underline-offset: 4px;
 }
 .btn-tertiary:hover { color: var(--accent); }
 
@@ -373,28 +434,32 @@ button:disabled { cursor: not-allowed; opacity: 0.3; }
 /* ---- LOCKED ---- */
 .locked-view {
   text-align: center;
-  padding: 32px 20px;
+  padding: var(--space-7) var(--space-4);
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 20px;
+  gap: var(--space-4);
 }
 .lock-symbol {
-  font-size: 56px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 64px;
   color: var(--accent);
-  animation: breathe 4s ease-in-out infinite;
+  animation: breathe 5s ease-in-out infinite;
   line-height: 1;
+  font-style: italic;
+  font-weight: 400;
+  margin-bottom: var(--space-2);
 }
 .locked-line {
   font-family: 'JetBrains Mono', monospace;
   font-size: 10px;
-  color: var(--ink-dim);
+  color: var(--ink-faint);
   text-transform: uppercase;
   letter-spacing: 0.3em;
 }
 .locked-time {
   font-family: 'Cormorant Garamond', serif;
-  font-size: 52px;
+  font-size: 56px;
   font-weight: 400;
   color: var(--ink);
   font-style: italic;
@@ -402,12 +467,21 @@ button:disabled { cursor: not-allowed; opacity: 0.3; }
   line-height: 1;
 }
 .pending-incipit-block {
-  margin-top: 20px;
-  padding: 20px 24px;
-  background: var(--bg-elev);
-  border-left: 2px solid var(--accent);
+  margin-top: var(--space-5);
+  padding: var(--space-4) var(--space-5);
   width: 100%;
-  max-width: 420px;
+  max-width: 440px;
+  position: relative;
+}
+.pending-incipit-block::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 0;
+  transform: translateX(-50%);
+  width: 24px;
+  height: 1px;
+  background: var(--accent);
 }
 .pending-incipit-hint {
   font-family: 'JetBrains Mono', monospace;
@@ -415,20 +489,22 @@ button:disabled { cursor: not-allowed; opacity: 0.3; }
   color: var(--ink-faint);
   text-transform: uppercase;
   letter-spacing: 0.3em;
-  margin-bottom: 10px;
+  margin-bottom: var(--space-3);
 }
 .pending-incipit-text {
   font-family: 'Cormorant Garamond', serif;
-  font-size: 24px;
+  font-size: 26px;
   font-style: italic;
   color: var(--accent);
+  line-height: 1.2;
 }
 .unlock-at {
   font-family: 'JetBrains Mono', monospace;
   font-size: 9px;
   color: var(--ink-faint);
-  margin-top: 12px;
-  letter-spacing: 0.1em;
+  margin-top: var(--space-3);
+  letter-spacing: 0.05em;
+  opacity: 0.6;
 }
 
 /* ---- ARCHIVE ---- */
@@ -591,53 +667,56 @@ button:disabled { cursor: not-allowed; opacity: 0.3; }
 /* ---- BOTTOM BAR ---- */
 .bottom-bar {
   position: fixed;
-  bottom: 16px;
+  bottom: 20px;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
-  gap: 8px;
+  gap: var(--space-2);
   align-items: center;
   z-index: 10;
   flex-wrap: wrap;
   justify-content: center;
-  max-width: 90vw;
+  max-width: 92vw;
+  padding: var(--space-2);
+  background: rgba(16, 42, 51, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--line);
+  border-radius: 0;
 }
 .bottom-btn {
   border: none;
-  padding: 12px 20px;
+  padding: 11px 18px;
   font-family: 'JetBrains Mono', monospace;
   font-size: 10px;
   text-transform: uppercase;
   letter-spacing: 0.25em;
   font-weight: 500;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+  background: transparent;
 }
 .bottom-btn.concluse {
-  background: var(--bg-elev-2);
-  color: var(--accent);
-  border: 1px solid var(--accent);
+  color: var(--ink-dim);
+  border: 1px solid var(--line);
 }
 .bottom-btn.concluse:hover {
-  background: var(--accent);
-  color: var(--bg);
+  color: var(--accent);
+  border-color: var(--accent);
 }
 .bottom-btn.incorso {
   background: var(--accent);
   color: var(--bg);
 }
 .bottom-btn.incorso:hover {
-  background: var(--ink);
-  color: var(--bg);
+  background: var(--accent-bright);
 }
 .incorso-locked-label {
   font-family: 'JetBrains Mono', monospace;
   font-size: 9px;
   color: var(--ink-faint);
   text-transform: uppercase;
-  letter-spacing: 0.2em;
-  padding: 8px 16px;
-  background: var(--bg-elev);
-  border: 1px solid var(--line);
+  letter-spacing: 0.25em;
+  padding: 8px 14px;
+  font-style: italic;
 }
 
 /* ---- ARCHIVE TITLE BLOCK ---- */
@@ -766,7 +845,7 @@ button:disabled { cursor: not-allowed; opacity: 0.3; }
 .modal-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(8, 12, 24, 0.85);
+  background: rgba(8, 22, 28, 0.88);
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
   z-index: 500;
@@ -849,15 +928,23 @@ button:disabled { cursor: not-allowed; opacity: 0.3; }
   margin-top: 8px;
 }
 
-@media (max-width: 480px) {
-  .app { padding: 24px 16px 100px; }
-  .title { font-size: 24px; }
-  .counter-num { font-size: 24px; }
+@media (max-width: 540px) {
+  .app { padding: var(--space-6) var(--space-4) 120px; }
+  .header { margin-bottom: var(--space-7); }
+  .header::after { bottom: -20px; }
+  .title { font-size: 28px; }
+  .title-line-2 { padding-left: 18px; }
+  .counter-num { font-size: 26px; }
+  #draft { font-size: 22px; min-height: 200px; }
+  .incipit-text { font-size: 22px; }
   .choices { grid-template-columns: 1fr; }
-  .locked-time { font-size: 42px; }
+  .locked-time { font-size: 44px; }
+  .lock-symbol { font-size: 48px; }
+  .pending-incipit-text { font-size: 22px; }
   .test-panel { width: 220px; }
-  .modal-panel { padding: 18px; }
+  .modal-panel { padding: var(--space-4); }
   .modal-title { font-size: 20px; }
+  .bottom-bar { bottom: 12px; }
 }
 </style>
 </head>
@@ -866,7 +953,7 @@ button:disabled { cursor: not-allowed; opacity: 0.3; }
 <div class="app">
   <header class="header">
     <div>
-      <h1 class="title">Nulla dies<br/>sine linea</h1>
+      <h1 class="title">Nulla dies<span class="title-line-2">sine linea</span></h1>
       <p class="subtitle">una frase ogni dodici ore</p>
     </div>
     <div class="counter" id="counter"></div>
@@ -1690,10 +1777,11 @@ function attachTextareaGuards(ta) {
 function render() {
   // counter
   const counter = document.getElementById("counter");
+  const currentCount = state.sentences.filter(s => s.chainId === state.currentChainId).length;
   if (state.sentences.length > 0) {
     counter.innerHTML = `
-      <span class="counter-num">${state.sentences.length}</span>
-      <span class="counter-label">frasi · catena ${state.currentChainId}</span>
+      <span class="counter-num">${currentCount}</span>
+      <span class="counter-label">${currentCount === 1 ? 'frase' : 'frasi'} · catena ${state.currentChainId}</span>
     `;
   } else counter.innerHTML = "";
 
@@ -1799,7 +1887,7 @@ function renderWriting() {
           <span class="incipit-label">incipit</span>
           <span class="incipit-text">${escapeHtml(incipit)}</span>
         </div>`
-      : `<div class="free-label">frase libera · scegli tu l'inizio</div>`
+      : `<div class="free-label"><span class="free-label-text">frase libera · scegli tu l'inizio</span></div>`
     }
     <textarea id="draft" placeholder="${incipit ? '' : "scrivi una frase…"}"></textarea>
     <div class="actions-row">
@@ -1880,7 +1968,7 @@ function renderLocked() {
   const timeStr = testMode ? formatRemainingShort(remaining) : formatRemaining(remaining);
   return `
     <div class="locked-view">
-      <div class="lock-symbol">·</div>
+      <div class="lock-symbol">—</div>
       <p class="locked-line">la prossima frase tra</p>
       <p class="locked-time">${timeStr}</p>
       ${state.pendingIncipit ? `
@@ -2012,12 +2100,15 @@ function renderTestPanel() {
     <button class="test-button danger" id="tb-reset">cancella tutto</button>
     <p class="test-warning">Esporta un backup prima di cancellare. I dati cancellati non sono recuperabili.</p>
   `;
-  document.getElementById("tb-export-json").onclick = exportAllData;
-  document.getElementById("tb-import-file").onclick = importDataFromFile;
-  document.getElementById("tb-import-paste").onclick = importDataFromPaste;
-  document.getElementById("tb-toggle").onclick = toggleTestMode;
+  // ogni azione chiude il pannello dopo l'esecuzione (tranne reset che deve restare aperto per la doppia conferma)
+  const closeAfter = (fn) => () => { fn(); testPanelOpen = false; renderTestPanel(); };
+  document.getElementById("tb-export-json").onclick = closeAfter(exportAllData);
+  document.getElementById("tb-import-file").onclick = closeAfter(importDataFromFile);
+  document.getElementById("tb-import-paste").onclick = closeAfter(importDataFromPaste);
+  document.getElementById("tb-toggle").onclick = closeAfter(toggleTestMode);
   const sk = document.getElementById("tb-skip");
-  if (sk) sk.onclick = skipLock;
+  if (sk) sk.onclick = closeAfter(skipLock);
+  // reset NON usa closeAfter: deve restare aperto per la doppia conferma
   document.getElementById("tb-reset").onclick = resetAll;
 }
 
@@ -2050,6 +2141,17 @@ if (phase === "writing" && state.pendingIncipit) {
 }
 render();
 setInterval(tick, 250);
+
+// chiusura pannello dati cliccando fuori
+document.addEventListener("click", (e) => {
+  if (!testPanelOpen) return;
+  const panel = document.getElementById("test-panel");
+  const toggle = document.getElementById("test-toggle");
+  if (panel && !panel.contains(e.target) && !toggle.contains(e.target)) {
+    testPanelOpen = false;
+    renderTestPanel();
+  }
+});
 </script>
 
 </body>
