@@ -643,6 +643,18 @@ button:disabled { cursor: not-allowed; opacity: 0.3; }
   background: var(--accent);
   color: var(--bg);
 }
+.chain-action-danger {
+  border-color: #8b3a2a;
+  color: #d97a5e;
+  font-size: 22px;
+  line-height: 1;
+  font-weight: 300;
+}
+.chain-action-danger:hover, .chain-action-danger:active {
+  border-color: #d97a5e;
+  background: #8b3a2a;
+  color: #ffe0d4;
+}
 
 /* FLASH MESSAGE */
 .flash-message {
@@ -1502,6 +1514,48 @@ function renameChain(chainId) {
   );
 }
 
+function deleteChain(chainId) {
+  const sents = state.sentences.filter(s => s.chainId === chainId);
+  const title = state.chainTitles[chainId] || `catena ${chainId}`;
+  const count = sents.length;
+  const isCurrent = chainId === state.currentChainId;
+
+  showChoiceModal(
+    "Cancellare la catena?",
+    `Stai per cancellare «${title}» (${count} fras${count === 1 ? 'e' : 'i'}). L'azione non si può annullare.${isCurrent ? ' Questa è la catena in corso: cancellandola ricomincerai da capo.' : ''}`,
+    [
+      { label: "annulla", value: null },
+      { label: "cancella", value: "delete" },
+    ],
+    (choice) => {
+      if (choice !== "delete") return;
+      // rimuovi tutte le frasi di questa catena
+      state.sentences = state.sentences.filter(s => s.chainId !== chainId);
+      // rimuovi il titolo
+      delete state.chainTitles[chainId];
+      // se era la catena in corso, resetta incipit e lock
+      if (isCurrent) {
+        state.pendingIncipit = null;
+        state.lastWrittenAt = null;
+        // tieni lo stesso ID per continuare a scrivere nella "stessa" catena vuota
+      }
+      saveState();
+      flashMessage("catena cancellata");
+      // se stavo guardando il dettaglio di questa catena, torna all'indice
+      if (viewingChainId === chainId) {
+        viewingChainId = null;
+        phase = "concluse";
+      }
+      // se ero in "in-corso" e l'ho cancellata, torna a writing
+      if (isCurrent && phase === "in-corso") {
+        phase = "writing";
+        draft = "";
+      }
+      render();
+    }
+  );
+}
+
 // Modal generico per input testo (sostituisce prompt() che è bloccato in alcuni contesti)
 function showInputModal(title, label, initialValue, placeholder, callback) {
   // rimuovi modal esistente se presente
@@ -2128,6 +2182,7 @@ function render() {
         if (action === "rename") renameChain(cid);
         else if (action === "copy") copyChain(cid);
         else if (action === "export") exportChain(cid);
+        else if (action === "delete") deleteChain(cid);
       });
     });
   } else if (phase === "in-corso") {
@@ -2383,6 +2438,7 @@ function renderChainDetail() {
         <button class="chain-action" data-action="rename" data-chain="${cid}" title="rinomina">✎</button>
         <button class="chain-action" data-action="copy" data-chain="${cid}" title="copia testo">⎘</button>
         <button class="chain-action" data-action="export" data-chain="${cid}" title="esporta .txt">↓</button>
+        <button class="chain-action chain-action-danger" data-action="delete" data-chain="${cid}" title="cancella catena">×</button>
       </div>
     </div>
 
