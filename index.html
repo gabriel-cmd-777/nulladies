@@ -746,6 +746,214 @@ button:disabled { cursor: not-allowed; opacity: 0.3; }
   line-height: 1.6;
 }
 
+/* ---- INDEX TOOLBAR (search + sort) ---- */
+.index-toolbar {
+  margin-bottom: var(--space-5);
+  padding-bottom: var(--space-4);
+  border-bottom: 1px solid var(--line-soft);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+.search-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.search-icon {
+  position: absolute;
+  left: var(--space-3);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 14px;
+  color: var(--ink-faint);
+  pointer-events: none;
+}
+.search-input {
+  width: 100%;
+  background: var(--bg-elev);
+  border: 1px solid var(--line);
+  color: var(--ink);
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 17px;
+  font-style: italic;
+  padding: 10px 36px 10px 32px;
+  outline: none;
+  border-radius: 0;
+  -webkit-appearance: none;
+  appearance: none;
+}
+.search-input::placeholder {
+  color: var(--ink-faint);
+  opacity: 0.7;
+}
+.search-input:focus {
+  border-color: var(--accent);
+}
+.search-clear {
+  position: absolute;
+  right: 6px;
+  background: transparent;
+  border: none;
+  color: var(--ink-faint);
+  font-size: 14px;
+  padding: 8px 10px;
+}
+.search-clear:hover { color: var(--accent); }
+
+.sort-wrap {
+  display: flex;
+  gap: var(--space-1);
+}
+.sort-btn {
+  background: transparent;
+  border: 1px solid var(--line);
+  color: var(--ink-faint);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  padding: 7px 12px;
+  flex: 1;
+}
+.sort-btn:hover { color: var(--ink); }
+.sort-btn.active {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+/* ---- CHAIN INDEX LIST ---- */
+.chain-index {
+  display: flex;
+  flex-direction: column;
+}
+.index-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--line-soft);
+  padding: var(--space-4) var(--space-1);
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.15s;
+  color: var(--ink);
+}
+.index-row:hover, .index-row:active {
+  background: var(--bg-elev);
+}
+.index-row:last-child {
+  border-bottom: none;
+}
+.index-row-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+.index-row-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-weight: 500;
+  font-size: 22px;
+  color: var(--accent);
+  line-height: 1.25;
+  word-break: break-word;
+}
+.index-row-title.untitled {
+  color: var(--ink-faint);
+  font-size: 18px;
+  opacity: 0.7;
+}
+.index-row-meta {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--ink-faint);
+  letter-spacing: 0.1em;
+  text-transform: lowercase;
+}
+.index-row-arrow {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 18px;
+  color: var(--accent-deep);
+  flex-shrink: 0;
+  padding: 0 var(--space-2);
+  transition: transform 0.18s ease, color 0.18s ease;
+}
+.index-row:hover .index-row-arrow {
+  color: var(--accent);
+  transform: translateX(4px);
+}
+
+/* ---- CHAIN DETAIL VIEW ---- */
+.detail-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-5);
+  padding-bottom: var(--space-4);
+  border-bottom: 1px solid var(--line-soft);
+  gap: var(--space-3);
+}
+.btn-back {
+  background: transparent;
+  border: none;
+  color: var(--ink-dim);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+  padding: 8px 12px 8px 0;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+.btn-back:hover { color: var(--accent); }
+.btn-back-arrow {
+  font-size: 16px;
+  line-height: 1;
+}
+.detail-actions {
+  display: flex;
+  gap: var(--space-2);
+  flex-shrink: 0;
+}
+.detail-title-block {
+  margin-bottom: var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+.detail-title-block .chain-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  color: var(--ink-faint);
+}
+.detail-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-weight: 500;
+  font-size: 32px;
+  color: var(--accent);
+  line-height: 1.15;
+  word-break: break-word;
+}
+.detail-title.untitled {
+  color: var(--ink-faint);
+  font-size: 24px;
+  opacity: 0.7;
+}
+.detail-sentences {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
 /* ---- TEST PANEL ---- */
 .test-wrapper {
   position: fixed;
@@ -997,7 +1205,10 @@ let state = {
   chainTitles: {}, // { [chainId]: "titolo" }
 };
 let testMode = false;
-let phase = "writing"; // writing | choosing-finale | locked | archive
+let phase = "writing"; // writing | choosing-finale | closing-chain | locked | concluse | in-corso | chain-detail
+let viewingChainId = null;    // ID della catena aperta in dettaglio
+let chainSearchQuery = "";
+let chainSortOrder = "recent"; // "recent" | "oldest" | "alpha"
 let draft = "";
 let finaleOptions = null;
 let testPanelOpen = false;
@@ -1472,10 +1683,39 @@ function openInCorso() {
   render();
 }
 
+function openChainDetail(chainId) {
+  viewingChainId = chainId;
+  phase = "chain-detail";
+  render();
+  // scroll to top
+  window.scrollTo({ top: 0, behavior: "auto" });
+}
+
+function closeChainDetail() {
+  viewingChainId = null;
+  // torna alla lista delle concluse
+  phase = "concluse";
+  render();
+}
+
 function closeArchiveView() {
   state.archiveUnlocked = false;
+  viewingChainId = null;
   saveState();
   phase = computePhase();
+  render();
+}
+
+function setChainSearch(q) {
+  chainSearchQuery = q;
+  // re-render solo la lista, non l'intera vista (evita di perdere il focus sull'input)
+  const listEl = document.getElementById("chain-index-list");
+  if (listEl) listEl.innerHTML = renderChainIndexList();
+  attachChainListListeners();
+}
+
+function setChainSort(order) {
+  chainSortOrder = order;
   render();
 }
 
@@ -1795,7 +2035,7 @@ function render() {
   const inCorsoEligible = currentChainSentenceCount > 0 &&
     state.sentences.length - state.archiveViewedAtCount >= archiveEvery();
 
-  const inArchiveView = phase === "concluse" || phase === "in-corso";
+  const inArchiveView = phase === "concluse" || phase === "in-corso" || phase === "chain-detail";
 
   if (!inArchiveView && closedChainCount > 0) {
     concluseBtn.classList.remove("hidden");
@@ -1862,9 +2102,25 @@ function render() {
     });
   } else if (phase === "locked") {
     main.innerHTML = renderLocked();
-  } else if (phase === "concluse" || phase === "in-corso") {
-    main.innerHTML = renderArchiveSection(phase);
-    document.getElementById("btn-close-archive").onclick = closeArchiveView;
+  } else if (phase === "concluse") {
+    main.innerHTML = renderConcluse();
+    const closeBtn = document.getElementById("btn-close-archive");
+    if (closeBtn) closeBtn.onclick = closeArchiveView;
+    attachChainListListeners();
+    // search input
+    const searchInput = document.getElementById("chain-search");
+    if (searchInput) {
+      searchInput.addEventListener("input", (e) => setChainSearch(e.target.value));
+    }
+    const clearBtn = document.getElementById("search-clear");
+    if (clearBtn) clearBtn.onclick = () => { setChainSearch(""); render(); };
+    // sort buttons
+    main.querySelectorAll("[data-sort]").forEach(btn => {
+      btn.onclick = () => setChainSort(btn.dataset.sort);
+    });
+  } else if (phase === "chain-detail") {
+    main.innerHTML = renderChainDetail();
+    document.getElementById("btn-back-to-concluse").onclick = closeChainDetail;
     main.querySelectorAll(".chain-action").forEach(btn => {
       btn.addEventListener("click", () => {
         const action = btn.dataset.action;
@@ -1874,6 +2130,9 @@ function render() {
         else if (action === "export") exportChain(cid);
       });
     });
+  } else if (phase === "in-corso") {
+    main.innerHTML = renderInCorso();
+    document.getElementById("btn-close-archive").onclick = closeArchiveView;
   }
 
   renderTestPanel();
@@ -1981,93 +2240,229 @@ function renderLocked() {
   `;
 }
 
-function renderArchiveSection(which) {
-  // which: "concluse" o "in-corso"
-  const isConcluse = which === "concluse";
+// ============================================================
+// UTILITIES PER L'ARCHIVIO
+// ============================================================
+function getChainSentences(chainId) {
+  return state.sentences.filter(s => s.chainId === chainId);
+}
 
-  const chains = {};
+function getSortedClosedChainIds() {
+  // tutte le catene chiuse, ordinate secondo chainSortOrder
+  const seen = new Set();
   state.sentences.forEach(s => {
-    if (!chains[s.chainId]) chains[s.chainId] = [];
-    chains[s.chainId].push(s);
+    if (s.chainId !== state.currentChainId) seen.add(s.chainId);
+  });
+  let ids = Array.from(seen);
+
+  // prepara metadati per ordinamento
+  const meta = {};
+  ids.forEach(id => {
+    const sents = getChainSentences(id);
+    const lastTs = sents.length ? Math.max(...sents.map(s => s.writtenAt)) : 0;
+    const firstTs = sents.length ? Math.min(...sents.map(s => s.writtenAt)) : 0;
+    meta[id] = {
+      lastTs,
+      firstTs,
+      title: state.chainTitles[id] || "",
+    };
   });
 
-  let chainIds = Object.keys(chains).map(Number);
-  if (isConcluse) {
-    chainIds = chainIds.filter(id => id !== state.currentChainId);
-  } else {
-    chainIds = chainIds.filter(id => id === state.currentChainId);
+  if (chainSortOrder === "recent") {
+    ids.sort((a, b) => meta[b].lastTs - meta[a].lastTs);
+  } else if (chainSortOrder === "oldest") {
+    ids.sort((a, b) => meta[a].firstTs - meta[b].firstTs);
+  } else if (chainSortOrder === "alpha") {
+    ids.sort((a, b) => {
+      const ta = (meta[a].title || `Catena ${a}`).toLocaleLowerCase("it");
+      const tb = (meta[b].title || `Catena ${b}`).toLocaleLowerCase("it");
+      return ta.localeCompare(tb, "it");
+    });
   }
-  chainIds.sort((a, b) => b - a);
+  return ids;
+}
 
-  const sectionTitle = isConcluse ? "concluse" : "in corso";
-  const sectionSubtitle = isConcluse
-    ? `${chainIds.length} caten${chainIds.length === 1 ? 'a' : 'e'}`
-    : `catena ${state.currentChainId}`;
+function filterChainsByQuery(ids) {
+  if (!chainSearchQuery.trim()) return ids;
+  const q = chainSearchQuery.toLocaleLowerCase("it").trim();
+  return ids.filter(id => {
+    const title = (state.chainTitles[id] || "").toLocaleLowerCase("it");
+    if (title.includes(q)) return true;
+    // cerca anche nel testo delle frasi della catena
+    const sents = getChainSentences(id);
+    return sents.some(s => s.text.toLocaleLowerCase("it").includes(q));
+  });
+}
 
-  if (chainIds.length === 0) {
+// ============================================================
+// VISTE
+// ============================================================
+
+function renderConcluse() {
+  // schermata indice delle catene chiuse
+  const allClosedIds = getSortedClosedChainIds();
+
+  if (allClosedIds.length === 0) {
     return `
       <div class="archive-header">
         <div class="archive-title-block">
-          <h2 class="archive-title">${sectionTitle}</h2>
+          <h2 class="archive-title">concluse</h2>
         </div>
         <button id="btn-close-archive" class="btn-tertiary">chiudi</button>
       </div>
       <div class="empty-section">
-        <p class="empty-text">${isConcluse
-          ? "non hai ancora concluso nessuna catena.<br>quando ne chiuderai una, comparirà qui."
-          : "non hai ancora scritto nessuna frase in questa catena."}</p>
+        <p class="empty-text">non hai ancora concluso nessuna catena.<br>quando ne chiuderai una, comparirà qui.</p>
       </div>
     `;
   }
 
-  const chainsHtml = chainIds.map(cid => {
-    const title = state.chainTitles[cid];
-    const titleBlock = title
-      ? `<h4 class="chain-title-text">${escapeHtml(title)}</h4>`
-      : `<h4 class="chain-title-text chain-title-untitled">senza titolo</h4>`;
+  return `
+    <div class="archive-header">
+      <div class="archive-title-block">
+        <h2 class="archive-title">concluse</h2>
+        <span class="archive-subtitle">${allClosedIds.length} caten${allClosedIds.length === 1 ? 'a' : 'e'}</span>
+      </div>
+      <button id="btn-close-archive" class="btn-tertiary">chiudi</button>
+    </div>
+
+    <div class="index-toolbar">
+      <div class="search-wrap">
+        <span class="search-icon">⌕</span>
+        <input id="chain-search" class="search-input" type="text" placeholder="cerca per titolo o testo" value="${escapeHtml(chainSearchQuery)}" />
+        ${chainSearchQuery ? `<button class="search-clear" id="search-clear">✕</button>` : ''}
+      </div>
+      <div class="sort-wrap">
+        <button class="sort-btn ${chainSortOrder === 'recent' ? 'active' : ''}" data-sort="recent">recenti</button>
+        <button class="sort-btn ${chainSortOrder === 'oldest' ? 'active' : ''}" data-sort="oldest">vecchie</button>
+        <button class="sort-btn ${chainSortOrder === 'alpha' ? 'active' : ''}" data-sort="alpha">A–Z</button>
+      </div>
+    </div>
+
+    <div id="chain-index-list">${renderChainIndexList()}</div>
+  `;
+}
+
+function renderChainIndexList() {
+  const allIds = getSortedClosedChainIds();
+  const visibleIds = filterChainsByQuery(allIds);
+
+  if (visibleIds.length === 0) {
+    return `<p class="empty-text" style="padding: 40px 0; text-align: center;">nessun risultato per «${escapeHtml(chainSearchQuery)}»</p>`;
+  }
+
+  return `<div class="chain-index">${visibleIds.map(id => {
+    const sents = getChainSentences(id);
+    const title = state.chainTitles[id];
+    const lastTs = sents.length ? Math.max(...sents.map(s => s.writtenAt)) : 0;
+    const dateStr = lastTs ? new Date(lastTs).toLocaleDateString("it-IT", { day: "numeric", month: "short", year: "numeric" }) : "";
     return `
-      <div class="chain-block">
-        <div class="chain-header">
-          <div class="chain-header-left">
-            <span class="chain-label">catena ${cid} · ${chains[cid].length} frasi</span>
-            ${titleBlock}
-          </div>
-          <div class="chain-actions">
-            <button class="chain-action" data-action="rename" data-chain="${cid}" title="rinomina">✎</button>
-            <button class="chain-action" data-action="copy" data-chain="${cid}" title="copia testo">⎘</button>
-            <button class="chain-action" data-action="export" data-chain="${cid}" title="esporta .txt">↓</button>
+      <button class="index-row" data-open-chain="${id}">
+        <div class="index-row-main">
+          <h3 class="index-row-title ${title ? '' : 'untitled'}">${escapeHtml(title || "senza titolo")}</h3>
+          <p class="index-row-meta">${sents.length} fras${sents.length === 1 ? 'e' : 'i'} · ${escapeHtml(dateStr)}</p>
+        </div>
+        <span class="index-row-arrow">→</span>
+      </button>
+    `;
+  }).join("")}</div>`;
+}
+
+function renderChainDetail() {
+  const cid = viewingChainId;
+  if (cid === null) return "";
+  const sents = getChainSentences(cid);
+  const title = state.chainTitles[cid];
+
+  return `
+    <div class="detail-header">
+      <button class="btn-back" id="btn-back-to-concluse">
+        <span class="btn-back-arrow">←</span>
+        <span class="btn-back-text">concluse</span>
+      </button>
+      <div class="chain-actions detail-actions">
+        <button class="chain-action" data-action="rename" data-chain="${cid}" title="rinomina">✎</button>
+        <button class="chain-action" data-action="copy" data-chain="${cid}" title="copia testo">⎘</button>
+        <button class="chain-action" data-action="export" data-chain="${cid}" title="esporta .txt">↓</button>
+      </div>
+    </div>
+
+    <div class="detail-title-block">
+      <span class="chain-label">catena ${cid} · ${sents.length} fras${sents.length === 1 ? 'e' : 'i'}</span>
+      <h2 class="detail-title ${title ? '' : 'untitled'}">${escapeHtml(title || "senza titolo")}</h2>
+    </div>
+
+    <div class="chain-sentences detail-sentences">
+      ${sents.map((s, i) => `
+        <div class="archived-sentence">
+          <span class="archived-index">${String(i + 1).padStart(2, "0")}</span>
+          <div class="archived-body">
+            <p class="archived-text">${escapeHtml(s.text)}</p>
+            <p class="archived-meta">${formatDate(s.writtenAt)} · finale: <em>${escapeHtml(s.finale)}</em></p>
           </div>
         </div>
-        <div class="chain-sentences">
-          ${chains[cid].map((s, i) => `
-            <div class="archived-sentence">
-              <span class="archived-index">${String(i + 1).padStart(2, "0")}</span>
-              <div class="archived-body">
-                <p class="archived-text">${escapeHtml(s.text)}</p>
-                <p class="archived-meta">${formatDate(s.writtenAt)} · finale: <em>${escapeHtml(s.finale)}</em></p>
-              </div>
-            </div>
-          `).join("")}
+      `).join("")}
+    </div>
+  `;
+}
+
+function renderInCorso() {
+  // catena attualmente in corso
+  const cid = state.currentChainId;
+  const sents = getChainSentences(cid);
+  const title = state.chainTitles[cid];
+
+  if (sents.length === 0) {
+    return `
+      <div class="archive-header">
+        <div class="archive-title-block">
+          <h2 class="archive-title">in corso</h2>
         </div>
+        <button id="btn-close-archive" class="btn-tertiary">chiudi</button>
+      </div>
+      <div class="empty-section">
+        <p class="empty-text">non hai ancora scritto nessuna frase in questa catena.</p>
       </div>
     `;
-  }).join("");
-
-  const footer = isConcluse
-    ? `<p class="archive-footer">le catene concluse sono sempre accessibili</p>`
-    : `<p class="archive-footer">la catena in corso si richiuderà tra le prossime ${archiveEvery()} frasi</p>`;
+  }
 
   return `
     <div class="archive-header">
       <div class="archive-title-block">
-        <h2 class="archive-title">${sectionTitle}</h2>
-        <span class="archive-subtitle">${sectionSubtitle}</span>
+        <h2 class="archive-title">in corso</h2>
+        <span class="archive-subtitle">catena ${cid}</span>
       </div>
       <button id="btn-close-archive" class="btn-tertiary">chiudi</button>
     </div>
-    ${chainsHtml}
-    ${footer}
+
+    <div class="detail-title-block">
+      <span class="chain-label">catena ${cid} · ${sents.length} fras${sents.length === 1 ? 'e' : 'i'}</span>
+      ${title ? `<h2 class="detail-title">${escapeHtml(title)}</h2>` : ''}
+    </div>
+
+    <div class="chain-sentences detail-sentences">
+      ${sents.map((s, i) => `
+        <div class="archived-sentence">
+          <span class="archived-index">${String(i + 1).padStart(2, "0")}</span>
+          <div class="archived-body">
+            <p class="archived-text">${escapeHtml(s.text)}</p>
+            <p class="archived-meta">${formatDate(s.writtenAt)} · finale: <em>${escapeHtml(s.finale)}</em></p>
+          </div>
+        </div>
+      `).join("")}
+    </div>
+
+    <p class="archive-footer">la catena in corso si richiuderà tra le prossime ${archiveEvery()} frasi</p>
   `;
+}
+
+function attachChainListListeners() {
+  // bottoni "apri catena"
+  document.querySelectorAll("[data-open-chain]").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const id = parseInt(btn.dataset.openChain, 10);
+      openChainDetail(id);
+    });
+  });
 }
 
 function renderTestPanel() {
